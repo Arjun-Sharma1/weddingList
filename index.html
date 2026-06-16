@@ -174,7 +174,9 @@
     .search svg { position: absolute; left: 20px; width: 19px; height: 19px; color: var(--green-soft); pointer-events: none; }
     #q {
       flex: 1;
+      min-width: 0;
       border: 0;
+      margin: 0;
       background: transparent;
       font-family: "Jost", sans-serif;
       font-size: 1.05rem;
@@ -183,7 +185,14 @@
       padding: 17px 18px 17px 50px;
       border-radius: 999px;
       outline: none;
+      /* strip native search-input chrome (box, inner border, cancel button) */
+      -webkit-appearance: none;
+      appearance: none;
     }
+    #q::-webkit-search-decoration,
+    #q::-webkit-search-cancel-button,
+    #q::-webkit-search-results-button,
+    #q::-webkit-search-results-decoration { -webkit-appearance: none; appearance: none; display: none; }
     #q::placeholder { color: var(--ink-soft); opacity: 0.7; }
     .clear {
       border: 0; background: transparent; cursor: pointer;
