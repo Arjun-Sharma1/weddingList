@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wedding rings">
+  <rect width="64" height="64" rx="14" fill="#3f5641"/>
+  <!-- two interlocking rings -->
+  <g fill="none" stroke="#cdab78" stroke-width="3.4">
+    <circle cx="26" cy="36" r="13"/>
+    <circle cx="40" cy="36" r="13" stroke="#b08d57"/>
+  </g>
+  <!-- little sparkle above the join -->
+  <path d="M33 12 l1.6 4.2 4.2 1.6 -4.2 1.6 -1.6 4.2 -1.6 -4.2 -4.2 -1.6 4.2 -1.6 z" fill="#cdab78"/>
+</svg>

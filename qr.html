@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scan to Find Your Seat — Printable Sign</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --paper:#f6f1e7; --ink:#2e2a24; --ink-soft:#6a6357;
+      --green:#3f5641; --gold:#b08d57; --gold-soft:#cdab78; --line:rgba(46,42,36,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Jost",system-ui,sans-serif; color:var(--ink);
+      background:var(--paper);
+      background-image:radial-gradient(120% 80% at 50% -10%, rgba(94,114,86,.16), transparent 60%);
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; padding:40px 24px;
+    }
+    .toolbar{
+      position:fixed; top:16px; right:16px; display:flex; gap:10px;
+    }
+    .toolbar button{
+      font-family:"Jost",sans-serif; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase;
+      background:var(--green); color:var(--paper); border:0; border-radius:999px;
+      padding:11px 22px; cursor:pointer;
+    }
+    .toolbar button:hover{background:#5e7256;}
+
+    .sign{
+      width:100%; max-width:520px; text-align:center;
+      background:var(--paper); border:1px solid var(--gold-soft); border-radius:6px;
+      padding:54px 44px 48px; position:relative;
+      box-shadow:0 30px 70px -34px rgba(46,42,36,.5);
+    }
+    .sign::before{content:"";position:absolute;inset:12px;border:1px solid rgba(176,141,87,.4);border-radius:3px;pointer-events:none;}
+
+    .rings{width:56px;height:56px;margin:0 auto 18px;display:block;}
+    .eyebrow{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);padding-left:.42em;}
+    .couple{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:2.6rem;line-height:1.02;color:var(--green);margin:12px 0 4px;}
+    .couple .amp{font-style:italic;color:var(--gold);font-weight:400;}
+    .lead{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.35rem;color:var(--ink-soft);margin-bottom:26px;}
+
+    .qr-frame{
+      display:inline-block; padding:18px; background:#fff;
+      border:1px solid var(--line); border-radius:4px;
+    }
+    .qr-frame img{display:block;width:240px;height:240px;}
+
+    .how{margin-top:26px;font-size:.95rem;font-weight:300;color:var(--ink-soft);}
+    .url{
+      margin-top:10px;font-size:.86rem;letter-spacing:.06em;color:var(--green);
+      font-weight:500; word-break:break-all;
+    }
+
+    @media print{
+      .toolbar{display:none;}
+      body{background:#fff;background-image:none;padding:0;}
+      .sign{box-shadow:none;border-color:#caa86f;max-width:none;width:100%;}
+      @page{margin:18mm;}
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="window.print()">Print this sign</button>
+  </div>
+
+  <div class="sign">
+    <svg class="rings" viewBox="0 0 64 64" aria-hidden="true">
+      <g fill="none" stroke-width="3.4">
+        <circle cx="26" cy="38" r="13" stroke="#cdab78"/>
+        <circle cx="40" cy="38" r="13" stroke="#b08d57"/>
+      </g>
+      <path d="M33 8 l1.6 4.2 4.2 1.6 -4.2 1.6 -1.6 4.2 -1.6 -4.2 -4.2 -1.6 4.2 -1.6 z" fill="#cdab78"/>
+    </svg>
+
+    <p class="eyebrow">Find Your Seat</p>
+    <h1 class="couple" id="couple">Olivia <span class="amp">&amp;</span> James</h1>
+    <p class="lead">Scan to find your table</p>
+
+    <div class="qr-frame">
+      <img src="/qr.png" alt="QR code linking to the table finder" />
+    </div>
+
+    <p class="how">Open your phone camera and point it at the code,<br />then tap the link that appears.</p>
+    <p class="url" id="url"></p>
+  </div>
+
+  <script src="/guests.js"></script>
+  <script>
+    var W = window.WEDDING || {};
+    if (W.couple) {
+      document.getElementById("couple").innerHTML =
+        W.couple.replace(/&|and/i, '<span class="amp">&amp;</span>');
+    }
+    // Show the live address (this page's own origin) so it always matches where it's hosted
+    var origin = location.origin && location.origin.indexOf("http") === 0
+      ? location.origin : "https://wedding-table-qr.vercel.app";
+    document.getElementById("url").textContent = origin.replace(/^https?:\/\//, "");
+  </script>
+</body>
+</html>

@@ -9,3 +9,5 @@ node_modules
 Thumbs.db
 *.log
 .playwright-mcp
+
+.vercel
