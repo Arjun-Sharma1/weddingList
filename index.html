@@ -428,13 +428,15 @@
 
       // ----- Header content -----
       if (W.couple) {
-        // render "A & B" with a styled ampersand
+        // render "A & B" with a styled ampersand; a line break (\n) in the
+        // couple name starts a new line in the heading.
         document.getElementById("couple").innerHTML =
-          W.couple.replace(/&|and/i, '<span class="amp">&amp;</span>');
+          W.couple.replace(/&|and/i, '<span class="amp">&amp;</span>')
+                  .replace(/\n/g, "<br />");
       }
       document.getElementById("date").textContent = W.date || "";
       document.getElementById("welcome").textContent = W.welcome || "";
-      document.title = (W.couple ? W.couple + " — " : "") + "Find Your Seat";
+      document.title = (W.couple ? W.couple.replace(/\s*\n\s*/g, " ") + " — " : "") + "Find Your Seat";
 
       // ----- Prepare + sort guests (alphabetical by name) -----
       var sortKey = function (n) { return n.trim().toLowerCase(); };
