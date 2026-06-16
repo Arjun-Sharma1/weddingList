@@ -46,7 +46,7 @@ content = '''/* =============================================================
 
 window.WEDDING = {
   // --- Event details (shown at the top of the page) ---
-  couple: "Arjun & Priyanjli Sharma",
+  couple: "Arjun & Priyanjli",
   date: "Friday, the 26th of June 2026",
   welcome: "Welcome! Find your name below to discover your table.",
 
