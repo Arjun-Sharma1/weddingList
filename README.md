@@ -34,6 +34,22 @@ Open **`guests.js`** in any text editor (Notepad works fine) and:
 
 ---
 
+## 📄 Re-importing from a spreadsheet (optional)
+
+The guest list was imported from `GuestList.csv`. If you'd rather update the
+spreadsheet and re-generate the list, edit `GuestList.csv` (columns:
+`Guest / Group, Table`) and run:
+
+```
+python build-guests.py
+```
+
+That rewrites `guests.js` for you. Rows where the first column is just a number
+(table capacity totals) are skipped automatically, and notes in the table column
+like `Table 4 (Kitty Table)` are shortened to `Table 4`.
+
+---
+
 ## 👀 Previewing it locally
 
 Just **double-click `index.html`** — it opens in your browser. Resize the window

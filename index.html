@@ -346,10 +346,10 @@
     .card .c-table {
       font-family: "Cormorant Garamond", serif;
       font-weight: 600;
-      font-size: clamp(3rem, 18vw, 4.6rem);
-      line-height: 1;
+      font-size: clamp(2.6rem, 13vw, 3.7rem);
+      line-height: 1.04;
       color: var(--green);
-      margin-top: 4px;
+      margin-top: 6px;
     }
     .card .c-close {
       margin-top: 30px;
@@ -406,7 +406,6 @@
       <p class="c-eyebrow">You're seated at</p>
       <p class="c-name" id="cardName"></p>
       <div class="c-sep"></div>
-      <p class="c-tlabel">Table</p>
       <p class="c-table" id="cardTable"></p>
       <button class="c-close" id="cardClose" type="button">Got it</button>
     </div>
@@ -428,15 +427,15 @@
       document.getElementById("welcome").textContent = W.welcome || "";
       document.title = (W.couple ? W.couple + " — " : "") + "Find Your Seat";
 
-      // ----- Prepare + sort guests (alphabetical by last name) -----
-      var lastName = function (n) {
-        var p = n.trim().split(/\s+/);
-        return (p[p.length - 1] || n).toLowerCase();
+      // ----- Prepare + sort guests (alphabetical by name) -----
+      var sortKey = function (n) { return n.trim().toLowerCase(); };
+      var groupLetter = function (n) {
+        var c = (n.trim().charAt(0) || "").toUpperCase();
+        return /[A-Z]/.test(c) ? c : "#"; // names not starting with a letter group under "#"
       };
       var guests = (W.guests || []).slice().sort(function (a, b) {
-        var la = lastName(a.name), lb = lastName(b.name);
-        if (la !== lb) return la < lb ? -1 : 1;
-        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+        var ka = sortKey(a.name), kb = sortKey(b.name);
+        return ka < kb ? -1 : ka > kb ? 1 : 0;
       });
 
       var listEl  = document.getElementById("list");
@@ -477,7 +476,7 @@
 
           // group headers only when browsing the full list
           if (!query) {
-            var letter = lastName(g.name).charAt(0).toUpperCase();
+            var letter = groupLetter(g.name);
             if (letter !== lastLetter) {
               lastLetter = letter;
               var h = document.createElement("li");
@@ -503,9 +502,9 @@
         emptyEl.style.display = shown === 0 ? "block" : "none";
         if (query) {
           countEl.textContent = shown === 0 ? "" :
-            shown + (shown === 1 ? " guest found" : " guests found");
+            shown + (shown === 1 ? " match found" : " matches found");
         } else {
-          countEl.textContent = guests.length + " guests · tap your name";
+          countEl.textContent = "Tap your name to see your table";
         }
       }
 
