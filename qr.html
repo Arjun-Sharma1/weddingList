@@ -7,12 +7,12 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --paper:#f6f1e7; --paper-deep:#efe7d6; --ink:#2e2a24; --ink-soft:#6a6357;
-      --green:#3f5641; --green-soft:#5e7256; --sage:#8a9b7c;
-      --gold:#b08d57; --gold-soft:#cdab78; --line:rgba(46,42,36,.16);
+      --paper:#f6f1e7; --paper-deep:#efe7d6; --ink:#2e2a24; --ink-soft:#615a4d;
+      --green:#3a5040; --green-soft:#5e7256; --sage:#8a9b7c;
+      --gold:#b08d57; --gold-soft:#cdab78; --gold-ink:#8a6a39; --line:rgba(46,42,36,.16);
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     html,body{height:100%;}
@@ -67,65 +67,65 @@
     .crest{width:134px; height:48px; flex:0 0 auto; color:var(--sage); margin-top:6px;}
 
     .eyebrow{
-      margin-top:12px;
-      font-size:.66rem; letter-spacing:.46em; text-transform:uppercase;
-      color:var(--gold); padding-left:.46em; font-weight:500;
+      margin-top:13px;
+      font-size:.64rem; letter-spacing:.4em; text-transform:uppercase;
+      color:var(--gold-ink); padding-left:.4em; font-weight:600;
     }
     .couple{
-      font-family:"Cormorant Garamond",serif; font-weight:600;
-      font-size:clamp(2.1rem, 8.5vw, 2.7rem); line-height:1.0;
-      color:var(--green); margin-top:10px; letter-spacing:.01em;
+      font-family:"Playfair Display",serif; font-weight:600;
+      font-size:clamp(1.95rem, 7.8vw, 2.45rem); line-height:1.08;
+      color:var(--green); margin-top:11px; letter-spacing:0;
     }
-    .couple .amp{font-style:italic; font-weight:400; color:var(--gold);}
+    .couple .amp{font-style:italic; font-weight:500; color:var(--gold);}
     .date{
-      font-family:"Cormorant Garamond",serif; font-style:italic;
-      font-size:1.02rem; color:var(--ink-soft); margin-top:8px;
+      font-family:"Playfair Display",serif; font-style:italic; font-weight:400;
+      font-size:1.02rem; letter-spacing:.01em; color:var(--ink-soft); margin-top:9px;
     }
 
-    .flourish{display:flex; align-items:center; justify-content:center; gap:10px;
-      width:160px; margin:16px 0 2px; color:var(--gold);}
+    .flourish{display:flex; align-items:center; justify-content:center; gap:11px;
+      width:150px; margin:18px 0 0; color:var(--gold);}
     .flourish::before,.flourish::after{content:""; height:1px; flex:1;
       background:linear-gradient(to var(--d,right), transparent, var(--gold-soft));}
     .flourish::before{--d:left;}
     .flourish span{width:5px; height:5px; background:var(--gold); transform:rotate(45deg);}
 
     .script{
-      font-family:"Pinyon Script",cursive; font-size:2.05rem; line-height:1;
-      color:var(--green); margin-top:6px;
+      font-family:"Pinyon Script",cursive; font-size:2.3rem; line-height:1;
+      color:var(--green-soft); margin-top:4px;
     }
 
-    /* arched QR frame — a quiet nod to a wedding archway */
-    .arch{
-      position:relative; margin-top:14px;
-      width:auto;
-      padding:38px 20px 18px;
+    /* matted QR plate — a square frame for a square code, so it always fits */
+    .qr-plate{
+      position:relative; margin-top:20px;
+      background:#fff;
+      padding:14px;
       border:1.5px solid var(--gold);
-      border-radius:150px 150px 7px 7px;
-      display:flex; align-items:flex-end; justify-content:center;
-    }
-    .arch::before{
-      content:""; position:absolute; inset:5px;
-      border:1px solid rgba(176,141,87,.4);
-      border-radius:135px 135px 4px 4px; pointer-events:none;
-    }
-    .finial{position:absolute; top:-6px; left:50%; transform:translateX(-50%) rotate(45deg);
-      width:9px; height:9px; background:var(--gold);}
-    .qr-tile{
-      background:#fff; padding:9px; border:1px solid var(--gold-soft);
       line-height:0;
     }
-    .qr-tile img{display:block; width:148px; height:148px;}
+    .qr-plate::before{          /* inner gold keyline */
+      content:""; position:absolute; inset:5px;
+      border:1px solid rgba(176,141,87,.5); pointer-events:none;
+    }
+    .qr-plate img{display:block; width:156px; height:156px;}
+    .qr-plate .c{               /* corner diamonds */
+      position:absolute; width:7px; height:7px; background:var(--gold);
+      transform:rotate(45deg);
+    }
+    .qr-plate .c.tl{top:-4px; left:-4px;}
+    .qr-plate .c.tr{top:-4px; right:-4px;}
+    .qr-plate .c.bl{bottom:-4px; left:-4px;}
+    .qr-plate .c.br{bottom:-4px; right:-4px;}
 
     .scan-cta{
       display:flex; align-items:center; justify-content:center; gap:9px;
-      margin-top:20px;
-      font-size:.78rem; letter-spacing:.2em; text-transform:uppercase;
+      margin-top:22px;
+      font-size:.74rem; letter-spacing:.22em; text-transform:uppercase;
       font-weight:600; color:var(--green);
     }
-    .scan-cta svg{width:17px; height:17px;}
+    .scan-cta svg{width:16px; height:16px; stroke:var(--gold-ink);}
     .how{
-      margin-top:8px; font-size:.82rem; font-weight:300; line-height:1.5;
-      color:var(--ink-soft); max-width:30ch;
+      margin-top:9px; font-size:.84rem; font-weight:300; line-height:1.55;
+      color:var(--ink-soft); max-width:28ch;
     }
     .url{
       margin-top:auto; padding-top:14px;
@@ -143,7 +143,7 @@
         width:100%; max-width:none; height:100vh; aspect-ratio:auto;
         box-shadow:none; padding:11mm 12mm; page-break-after:always;
       }
-      .qr-tile img{ width:44mm; height:44mm; }
+      .qr-plate img{ width:44mm; height:44mm; }
     }
     @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
   </style>
@@ -194,11 +194,10 @@
       <div class="flourish"><span></span></div>
       <p class="script">find your table</p>
 
-      <div class="arch">
-        <span class="finial"></span>
-        <div class="qr-tile">
-          <img src="qr.png" alt="QR code that opens the table finder" />
-        </div>
+      <div class="qr-plate">
+        <span class="c tl"></span><span class="c tr"></span>
+        <span class="c bl"></span><span class="c br"></span>
+        <img src="qr.png" alt="QR code that opens the table finder" />
       </div>
 
       <p class="scan-cta">
@@ -208,7 +207,7 @@
         </svg>
         Scan with your phone camera
       </p>
-      <p class="how">Point your camera at the code, then tap the link that appears to find your seat.</p>
+      <p class="how">Open your camera and point it at the code, then tap the link that appears.</p>
 
       <p class="url" id="url">wedding-table-qr.vercel.app</p>
     </div>
