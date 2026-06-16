@@ -7,89 +7,214 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --paper:#f6f1e7; --ink:#2e2a24; --ink-soft:#6a6357;
-      --green:#3f5641; --gold:#b08d57; --gold-soft:#cdab78; --line:rgba(46,42,36,.16);
+      --paper:#f6f1e7; --paper-deep:#efe7d6; --ink:#2e2a24; --ink-soft:#6a6357;
+      --green:#3f5641; --green-soft:#5e7256; --sage:#8a9b7c;
+      --gold:#b08d57; --gold-soft:#cdab78; --line:rgba(46,42,36,.16);
     }
     *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
     body{
       font-family:"Jost",system-ui,sans-serif; color:var(--ink);
-      background:var(--paper);
-      background-image:radial-gradient(120% 80% at 50% -10%, rgba(94,114,86,.16), transparent 60%);
-      min-height:100vh; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; padding:40px 24px;
+      background:#e9e2d2;
+      background-image:
+        radial-gradient(80% 50% at 50% 0%, rgba(94,114,86,.14), transparent 60%);
+      min-height:100%;
+      display:flex; align-items:center; justify-content:center;
+      padding:32px 18px 56px;
     }
-    .toolbar{
-      position:fixed; top:16px; right:16px; display:flex; gap:10px;
-    }
+
+    /* ---------- screen-only toolbar ---------- */
+    .toolbar{position:fixed; top:16px; right:16px; display:flex; gap:10px; z-index:10;}
     .toolbar button{
-      font-family:"Jost",sans-serif; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase;
+      font-family:"Jost",sans-serif; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
       background:var(--green); color:var(--paper); border:0; border-radius:999px;
-      padding:11px 22px; cursor:pointer;
+      padding:12px 24px; cursor:pointer; box-shadow:0 10px 24px -12px rgba(46,42,36,.6);
+      transition:background .2s, transform .1s;
     }
-    .toolbar button:hover{background:#5e7256;}
+    .toolbar button:hover{background:var(--green-soft);}
+    .toolbar button:active{transform:scale(.97);}
+    .hint{position:fixed; bottom:14px; left:0; right:0; text-align:center;
+      font-size:.74rem; letter-spacing:.04em; color:#7c7565; z-index:10;}
 
+    /* ---------- the sign ---------- */
     .sign{
-      width:100%; max-width:520px; text-align:center;
-      background:var(--paper); border:1px solid var(--gold-soft); border-radius:6px;
-      padding:54px 44px 48px; position:relative;
-      box-shadow:0 30px 70px -34px rgba(46,42,36,.5);
+      position:relative;
+      width:100%; max-width:430px;
+      background:
+        radial-gradient(120% 70% at 50% 0%, rgba(94,114,86,.07), transparent 55%),
+        var(--paper);
+      box-shadow:0 40px 90px -42px rgba(46,42,36,.55);
+      padding:40px 38px;
+      display:flex; flex-direction:column; align-items:center;
+      text-align:center;
+      overflow:hidden;
     }
-    .sign::before{content:"";position:absolute;inset:12px;border:1px solid rgba(176,141,87,.4);border-radius:3px;pointer-events:none;}
-
-    .rings{width:56px;height:56px;margin:0 auto 18px;display:block;}
-    .eyebrow{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);padding-left:.42em;}
-    .couple{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:2.6rem;line-height:1.02;color:var(--green);margin:12px 0 4px;}
-    .couple .amp{font-style:italic;color:var(--gold);font-weight:400;}
-    .lead{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.35rem;color:var(--ink-soft);margin-bottom:26px;}
-
-    .qr-frame{
-      display:inline-block; padding:18px; background:#fff;
-      border:1px solid var(--line); border-radius:4px;
+    /* double hairline frame */
+    .sign::before{
+      content:""; position:absolute; inset:14px;
+      border:1.5px solid var(--gold); pointer-events:none;
     }
-    .qr-frame img{display:block;width:240px;height:240px;}
+    .sign::after{
+      content:""; position:absolute; inset:19px;
+      border:1px solid rgba(176,141,87,.45); pointer-events:none;
+    }
+    .inner{position:relative; z-index:1; width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center;}
 
-    .how{margin-top:26px;font-size:.95rem;font-weight:300;color:var(--ink-soft);}
+    .crest{width:134px; height:48px; flex:0 0 auto; color:var(--sage); margin-top:6px;}
+
+    .eyebrow{
+      margin-top:12px;
+      font-size:.66rem; letter-spacing:.46em; text-transform:uppercase;
+      color:var(--gold); padding-left:.46em; font-weight:500;
+    }
+    .couple{
+      font-family:"Cormorant Garamond",serif; font-weight:600;
+      font-size:clamp(2.1rem, 8.5vw, 2.7rem); line-height:1.0;
+      color:var(--green); margin-top:10px; letter-spacing:.01em;
+    }
+    .couple .amp{font-style:italic; font-weight:400; color:var(--gold);}
+    .date{
+      font-family:"Cormorant Garamond",serif; font-style:italic;
+      font-size:1.02rem; color:var(--ink-soft); margin-top:8px;
+    }
+
+    .flourish{display:flex; align-items:center; justify-content:center; gap:10px;
+      width:160px; margin:16px 0 2px; color:var(--gold);}
+    .flourish::before,.flourish::after{content:""; height:1px; flex:1;
+      background:linear-gradient(to var(--d,right), transparent, var(--gold-soft));}
+    .flourish::before{--d:left;}
+    .flourish span{width:5px; height:5px; background:var(--gold); transform:rotate(45deg);}
+
+    .script{
+      font-family:"Pinyon Script",cursive; font-size:2.05rem; line-height:1;
+      color:var(--green); margin-top:6px;
+    }
+
+    /* arched QR frame — a quiet nod to a wedding archway */
+    .arch{
+      position:relative; margin-top:14px;
+      width:auto;
+      padding:38px 20px 18px;
+      border:1.5px solid var(--gold);
+      border-radius:150px 150px 7px 7px;
+      display:flex; align-items:flex-end; justify-content:center;
+    }
+    .arch::before{
+      content:""; position:absolute; inset:5px;
+      border:1px solid rgba(176,141,87,.4);
+      border-radius:135px 135px 4px 4px; pointer-events:none;
+    }
+    .finial{position:absolute; top:-6px; left:50%; transform:translateX(-50%) rotate(45deg);
+      width:9px; height:9px; background:var(--gold);}
+    .qr-tile{
+      background:#fff; padding:9px; border:1px solid var(--gold-soft);
+      line-height:0;
+    }
+    .qr-tile img{display:block; width:148px; height:148px;}
+
+    .scan-cta{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      margin-top:20px;
+      font-size:.78rem; letter-spacing:.2em; text-transform:uppercase;
+      font-weight:600; color:var(--green);
+    }
+    .scan-cta svg{width:17px; height:17px;}
+    .how{
+      margin-top:8px; font-size:.82rem; font-weight:300; line-height:1.5;
+      color:var(--ink-soft); max-width:30ch;
+    }
     .url{
-      margin-top:10px;font-size:.86rem;letter-spacing:.06em;color:var(--green);
-      font-weight:500; word-break:break-all;
+      margin-top:auto; padding-top:14px;
+      font-size:.74rem; letter-spacing:.1em; font-weight:500;
+      color:var(--green); word-break:break-word;
     }
 
+    /* ---------- print ---------- */
+    @page{ size:A5 portrait; margin:0; }
     @media print{
-      .toolbar{display:none;}
-      body{background:#fff;background-image:none;padding:0;}
-      .sign{box-shadow:none;border-color:#caa86f;max-width:none;width:100%;}
-      @page{margin:18mm;}
+      *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .toolbar,.hint{ display:none !important; }
+      body{ background:#fff; padding:0; display:block; }
+      .sign{
+        width:100%; max-width:none; height:100vh; aspect-ratio:auto;
+        box-shadow:none; padding:11mm 12mm; page-break-after:always;
+      }
+      .qr-tile img{ width:44mm; height:44mm; }
     }
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
   </style>
 </head>
 <body>
-  <div class="toolbar">
-    <button onclick="window.print()">Print this sign</button>
-  </div>
+  <div class="toolbar"><button onclick="window.print()">Print this sign</button></div>
 
   <div class="sign">
-    <svg class="rings" viewBox="0 0 64 64" aria-hidden="true">
-      <g fill="none" stroke-width="3.4">
-        <circle cx="26" cy="38" r="13" stroke="#cdab78"/>
-        <circle cx="40" cy="38" r="13" stroke="#b08d57"/>
-      </g>
-      <path d="M33 8 l1.6 4.2 4.2 1.6 -4.2 1.6 -1.6 4.2 -1.6 -4.2 -4.2 -1.6 4.2 -1.6 z" fill="#cdab78"/>
-    </svg>
+    <div class="inner">
+      <svg class="crest" viewBox="-62 -42 124 46" aria-hidden="true">
+        <g fill="#5e7256" stroke="#465c47" stroke-width=".5">
+          <g class="b">
+            <path d="M0 0 Q 26 -7 45 -34" fill="none" stroke="#5e7256" stroke-width="1.2" stroke-linecap="round"/>
+            <ellipse cx="9"  cy="-3"  rx="3.2" ry="8"   transform="rotate(48 9 -3)"/>
+            <ellipse cx="18" cy="-6"  rx="3.2" ry="8.4" transform="rotate(36 18 -6)"/>
+            <ellipse cx="27" cy="-12" rx="3"   ry="8.2" transform="rotate(22 27 -12)"/>
+            <ellipse cx="35" cy="-20" rx="2.8" ry="7.6" transform="rotate(6 35 -20)"/>
+            <ellipse cx="41" cy="-28" rx="2.5" ry="6.8" transform="rotate(-10 41 -28)"/>
+            <ellipse cx="45" cy="-34" rx="2.2" ry="5.8" transform="rotate(-22 45 -34)"/>
+            <ellipse cx="15" cy="-2"  rx="2.5" ry="6.4" transform="rotate(122 15 -2)" fill="#6f8268"/>
+            <ellipse cx="24" cy="-7"  rx="2.5" ry="6.8" transform="rotate(110 24 -7)" fill="#6f8268"/>
+            <ellipse cx="32" cy="-14" rx="2.3" ry="6.2" transform="rotate(98 32 -14)" fill="#6f8268"/>
+            <circle cx="5"  cy="-2" r="1.5" fill="#cdab78" stroke="none"/>
+            <circle cx="11" cy="1"  r="1.3" fill="#cdab78" stroke="none"/>
+          </g>
+        </g>
+        <g fill="#5e7256" stroke="#465c47" stroke-width=".5" transform="scale(-1,1)">
+          <path d="M0 0 Q 26 -7 45 -34" fill="none" stroke="#5e7256" stroke-width="1.2" stroke-linecap="round"/>
+          <ellipse cx="9"  cy="-3"  rx="3.2" ry="8"   transform="rotate(48 9 -3)"/>
+          <ellipse cx="18" cy="-6"  rx="3.2" ry="8.4" transform="rotate(36 18 -6)"/>
+          <ellipse cx="27" cy="-12" rx="3"   ry="8.2" transform="rotate(22 27 -12)"/>
+          <ellipse cx="35" cy="-20" rx="2.8" ry="7.6" transform="rotate(6 35 -20)"/>
+          <ellipse cx="41" cy="-28" rx="2.5" ry="6.8" transform="rotate(-10 41 -28)"/>
+          <ellipse cx="45" cy="-34" rx="2.2" ry="5.8" transform="rotate(-22 45 -34)"/>
+          <ellipse cx="15" cy="-2"  rx="2.5" ry="6.4" transform="rotate(122 15 -2)" fill="#6f8268"/>
+          <ellipse cx="24" cy="-7"  rx="2.5" ry="6.8" transform="rotate(110 24 -7)" fill="#6f8268"/>
+          <ellipse cx="32" cy="-14" rx="2.3" ry="6.2" transform="rotate(98 32 -14)" fill="#6f8268"/>
+          <circle cx="5"  cy="-2" r="1.5" fill="#cdab78" stroke="none"/>
+          <circle cx="11" cy="1"  r="1.3" fill="#cdab78" stroke="none"/>
+        </g>
+        <circle cx="0" cy="-3" r="2.1" fill="#b08d57" stroke="none"/>
+      </svg>
 
-    <p class="eyebrow">Find Your Seat</p>
-    <h1 class="couple" id="couple">Olivia <span class="amp">&amp;</span> James</h1>
-    <p class="lead">Scan to find your table</p>
+      <p class="eyebrow">Please be seated</p>
+      <h1 class="couple" id="couple">Arjun <span class="amp">&amp;</span> Priyanjli<br>Sharma</h1>
+      <p class="date" id="qdate">Friday, the 26th of June 2026</p>
 
-    <div class="qr-frame">
-      <img src="qr.png" alt="QR code linking to the table finder" />
+      <div class="flourish"><span></span></div>
+      <p class="script">find your table</p>
+
+      <div class="arch">
+        <span class="finial"></span>
+        <div class="qr-tile">
+          <img src="qr.png" alt="QR code that opens the table finder" />
+        </div>
+      </div>
+
+      <p class="scan-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 8V6a2 2 0 0 1 2-2h2M17 4h2a2 2 0 0 1 2 2v2M21 16v2a2 2 0 0 1-2 2h-2M7 20H5a2 2 0 0 1-2-2v-2"/>
+          <circle cx="12" cy="12" r="3.2"/>
+        </svg>
+        Scan with your phone camera
+      </p>
+      <p class="how">Point your camera at the code, then tap the link that appears to find your seat.</p>
+
+      <p class="url" id="url">wedding-table-qr.vercel.app</p>
     </div>
-
-    <p class="how">Open your phone camera and point it at the code,<br />then tap the link that appears.</p>
-    <p class="url" id="url"></p>
   </div>
+
+  <p class="hint">Tip: print on A5 card. The colours and frame print best with “Background graphics” turned on.</p>
 
   <script src="guests.js"></script>
   <script>
@@ -98,9 +223,10 @@
       // styled ampersand; a line break (\n) in the couple name starts a new line
       document.getElementById("couple").innerHTML =
         W.couple.replace(/&|and/i, '<span class="amp">&amp;</span>')
-                .replace(/\n/g, "<br />");
+                .replace(/\n/g, "<br>");
     }
-    // Show the live address (this page's own origin) so it always matches where it's hosted
+    if (W.date) document.getElementById("qdate").textContent = W.date;
+    // show the live address (this page's own origin) so it always matches where it's hosted
     var origin = location.origin && location.origin.indexOf("http") === 0
       ? location.origin : "https://wedding-table-qr.vercel.app";
     document.getElementById("url").textContent = origin.replace(/^https?:\/\//, "");
