@@ -17,8 +17,8 @@
 
 window.WEDDING = {
   // --- Event details (shown at the top of the page) ---
-  couple: "Olivia & James",
-  date: "Saturday, the 12th of September",
+  couple: "Arjun & Priyanjli Sharma",
+  date: "Friday, the 26th of June 2026",
   welcome: "Welcome! Find your name below to discover your table.",
 
   // --- Guest list (order does not matter — it sorts automatically) ---
