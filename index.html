@@ -428,10 +428,10 @@
 
       // ----- Header content -----
       if (W.couple) {
-        // render "A & B" with a styled ampersand; a line break (\n) in the
-        // couple name starts a new line in the heading.
+        // render "A & B" with a styled ampersand on its own centered line; a
+        // line break (\n) in the couple name also starts a new line.
         document.getElementById("couple").innerHTML =
-          W.couple.replace(/&|and/i, '<span class="amp">&amp;</span>')
+          W.couple.replace(/\s*&\s*|\s+and\s+/i, '<br /><span class="amp">&amp;</span><br />')
                   .replace(/\n/g, "<br />");
       }
       document.getElementById("date").textContent = W.date || "";
